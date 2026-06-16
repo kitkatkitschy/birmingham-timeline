@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birmingham Store Opening — Project Timeline</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f3eb;color:#2e2518;min-width:900px}
+.header{background:#3a3222;color:#f4efe0;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:18px;font-weight:500;letter-spacing:0.01em}
+.header .sub{font-size:12px;opacity:0.65;margin-top:3px}
+.header .badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;white-space:nowrap}
+.body{padding:1.25rem 2rem}
+.controls{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.controls span{font-size:12px;color:#888;margin-right:4px}
+.controls button{padding:5px 14px;border:1px solid #c8bfaa;border-radius:20px;background:#fff;color:#3a3222;font-size:12px;cursor:pointer;font-family:inherit;transition:background 0.15s}
+.controls button:hover{background:#eee8da}
+.controls button.active{background:#3a3222;color:#f4efe0;border-color:#3a3222}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1.25rem;font-size:11.5px;color:#666}
+.legend span{display:flex;align-items:center;gap:5px}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.chart-wrap{background:#fff;border-radius:8px;border:1px solid #e0d8c8;overflow:hidden}
+table{border-collapse:collapse;width:100%;min-width:800px}
+thead th{background:#f5f0e8;color:#6b5e48;font-weight:500;font-size:11px;padding:7px 4px;text-align:center;border:1px solid #e8e0cc;white-space:nowrap}
+thead th.lc{text-align:left;min-width:190px;padding-left:10px}
+tbody tr{transition:background 0.1s}
+tbody tr:hover td{background:#faf7f0}
+tbody tr td{border:1px solid #ede6d8;padding:0 2px;vertical-align:middle}
+tbody tr td.lc{padding:5px 10px;white-space:nowrap;background:#fff}
+tbody tr.phase-row td{background:#f9f5ee}
+tbody tr.phase-row td.lc{font-weight:500;font-size:12.5px;color:#2e2518}
+tbody tr.task-row td.lc{font-size:11.5px;color:#7a6e5e;padding-left:22px}
+.bar-cell{position:relative;height:24px}
+.bar{position:absolute;top:4px;height:16px;border-radius:3px}
+.milestone-diamond{position:absolute;top:5px;width:13px;height:13px;transform:rotate(45deg);border-radius:2px;z-index:2}
+.today-line{position:absolute;top:0;bottom:0;width:2px;z-index:5;pointer-events:none}
+.today-label{position:absolute;top:1px;font-size:9px;font-weight:600;color:#c0392b;z-index:6;white-space:nowrap;transform:translateX(-50%)}
+.footer{margin-top:1rem;font-size:11px;color:#999;display:flex;gap:24px;flex-wrap:wrap}
+.footer strong{color:#666}
+.key-dates{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1.25rem}
+.kd{background:#fff;border:1px solid #e0d8c8;border-radius:6px;padding:8px 14px;font-size:12px;border-left:4px solid #3a3222}
+.kd .dt{font-weight:500;font-size:13px;color:#2e2518}
+.kd .lb{color:#888;font-size:11px;margin-top:1px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header h1">Birmingham Store Opening — Project Timeline</div>
+    <div class="sub">Cherry Republic · Working backward from September 1, 2026</div>
+  </div>
+  <div class="badge">📅 Opening: Sep 1, 2026</div>
+</div>
+
+<div class="body">
+
+  <div class="key-dates">
+    <div class="kd"><div class="dt">Aug 1</div><div class="lb">All permits complete</div></div>
+    <div class="kd"><div class="dt">Aug 18</div><div class="lb">Construction done</div></div>
+    <div class="kd"><div class="dt">Aug 22</div><div class="lb">Staff trained &amp; ready</div></div>
+    <div class="kd"><div class="dt">Aug 29</div><div class="lb">Floor set, inventory in</div></div>
+    <div class="kd"><div class="dt" style="color:#3a3222;font-size:15px">Sep 1</div><div class="lb">🏪 Grand opening</div></div>
+  </div>
+
+  <div class="controls">
+    <span>View:</span>
+    <button class="active" onclick="setView('all',this)">All phases</button>
+    <button onclick="setView('critical',this)">Critical path</button>
+    <button onclick="setView('pre',this)">Pre-lease</button>
+    <button onclick="setView('post',this)">Post-lease</button>
+  </div>
+
+  <div class="legend">
+    <span><span class="ld" style="background:#3d6b5e"></span>Operations / Growth</span>
+    <span><span class="ld" style="background:#7a2e35"></span>Design / Marketing</span>
+    <span><span class="ld" style="background:#5c3a4f"></span>Permitting</span>
+    <span><span class="ld" style="background:#3a4f5c"></span>Construction / PM</span>
+    <span><span class="ld" style="background:#a89070"></span>Budget / Finance</span>
+    <span><span class="ld" style="background:#c4a96a"></span>Location / Lease</span>
+    <span><span class="ld" style="background:#999;transform:rotate(45deg);border-radius:1px"></span>◆ Milestone</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#c0392b;border-radius:2px"></span>Today</span>
+  </div>
+
+  <div class="chart-wrap">
+    <div id="chart"></div>
+  </div>
+
+  <div class="footer">
+    <span><strong>Owner key:</strong> Logan (Location) · Renee (Budget / Facilitation) · Rick (Design, Marketing) · Ryan Kincaid (Construction) · Admin (Permitting) · Ellen (Staffing) · Dawn (Logistics &amp; IT) · Pranav (Evaluation)</span>
+    <span>Generated Jun 16, 2026 · Cherry Republic Birmingham PPP</span>
+  </div>
+
+</div>
+
+<script>
+const PROJECT_START = new Date(2026,0,15);
+const PROJECT_END   = new Date(2026,8,7);
+const TODAY         = new Date(2026,5,16);
+const MONTH_NAMES   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+
+function diffDays(a,b){return Math.round((b-a)/864e5);}
+function pct(d){return Math.max(0,Math.min(100,diffDays(PROJECT_START,d)/diffDays(PROJECT_START,PROJECT_END)*100));}
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
+
+const phases=[
+  {name:"Location evaluation & lease",color:"#c4a96a",key:"location",owner:"Logan",
+   start:new Date(2026,0,15),end:new Date(2026,5,30),
+   tasks:[
+    {name:"Site analysis & demographics",start:new Date(2026,0,15),end:new Date(2026,2,1)},
+    {name:"Lease negotiation",start:new Date(2026,2,1),end:new Date(2026,5,15)},
+    {name:"⚑ Lease executed",start:new Date(2026,5,30),end:new Date(2026,5,30),milestone:true},
+  ]},
+  {name:"Budget & forecasting",color:"#a89070",key:"budget",owner:"Renee",
+   start:new Date(2026,1,1),end:new Date(2026,6,15),
+   tasks:[
+    {name:"Build budget initiated",start:new Date(2026,1,1),end:new Date(2026,3,1)},
+    {name:"Expense tracking tool live",start:new Date(2026,3,1),end:new Date(2026,5,15)},
+    {name:"Finance check-in cadence set",start:new Date(2026,5,15),end:new Date(2026,6,15)},
+  ]},
+  {name:"Design",color:"#7a2e35",key:"design",owner:"Rick",
+   start:new Date(2026,5,15),end:new Date(2026,7,1),
+   tasks:[
+    {name:"Site drawings received",start:new Date(2026,5,15),end:new Date(2026,6,1)},
+    {name:"Layout design approved",start:new Date(2026,6,1),end:new Date(2026,6,15)},
+    {name:"Branding / MKT handoff",start:new Date(2026,6,10),end:new Date(2026,7,1)},
+  ]},
+  {name:"Licensing & permitting",color:"#5c3a4f",key:"permits",owner:"Admin",
+   start:new Date(2026,5,15),end:new Date(2026,7,1),
+   tasks:[
+    {name:"Business license (out of state)",start:new Date(2026,5,15),end:new Date(2026,6,15)},
+    {name:"Liquor license filed",start:new Date(2026,5,15),end:new Date(2026,6,1)},
+    {name:"Sign permit",start:new Date(2026,6,1),end:new Date(2026,6,20)},
+    {name:"Dept of Ag inspection",start:new Date(2026,6,15),end:new Date(2026,6,25)},
+    {name:"Certificate of occupancy",start:new Date(2026,6,20),end:new Date(2026,7,1)},
+    {name:"⚑ All permits complete — Aug 1",start:new Date(2026,7,1),end:new Date(2026,7,1),milestone:true},
+  ]},
+  {name:"Project management & construction",color:"#3a4f5c",key:"construction",owner:"Ryan Kincaid",
+   start:new Date(2026,5,15),end:new Date(2026,7,18),
+   tasks:[
+    {name:"Timeline & estimates approved",start:new Date(2026,5,15),end:new Date(2026,6,1)},
+    {name:"Construction drawings submitted",start:new Date(2026,6,1),end:new Date(2026,6,10)},
+    {name:"Contractor bidding complete",start:new Date(2026,6,1),end:new Date(2026,6,15)},
+    {name:"Demolition",start:new Date(2026,6,15),end:new Date(2026,6,25)},
+    {name:"Construction phase",start:new Date(2026,6,25),end:new Date(2026,7,11)},
+    {name:"Finish work & final inspections",start:new Date(2026,7,11),end:new Date(2026,7,18)},
+    {name:"⚑ Construction complete — Aug 18",start:new Date(2026,7,18),end:new Date(2026,7,18),milestone:true},
+  ]},
+  {name:"Staffing",color:"#3d6b5e",key:"staffing",owner:"Ellen",
+   start:new Date(2026,5,15),end:new Date(2026,7,22),
+   tasks:[
+    {name:"Management team identified",start:new Date(2026,5,15),end:new Date(2026,6,1)},
+    {name:"Recruiting & hiring",start:new Date(2026,6,1),end:new Date(2026,7,1)},
+    {name:"Staff training",start:new Date(2026,7,1),end:new Date(2026,7,22)},
+    {name:"⚑ Team ready — Aug 22",start:new Date(2026,7,22),end:new Date(2026,7,22),milestone:true},
+  ]},
+  {name:"Logistics & IT",color:"#3d6b5e",key:"logistics",owner:"Dawn",
+   start:new Date(2026,6,1),end:new Date(2026,7,29),
+   tasks:[
+    {name:"POS & IT hub setup",start:new Date(2026,6,15),end:new Date(2026,7,15)},
+    {name:"Security system",start:new Date(2026,7,1),end:new Date(2026,7,18)},
+    {name:"Fixture deliveries",start:new Date(2026,7,10),end:new Date(2026,7,20)},
+    {name:"Initial inventory delivered",start:new Date(2026,7,18),end:new Date(2026,7,28)},
+    {name:"⚑ Floor set & merchandising done",start:new Date(2026,7,29),end:new Date(2026,7,29),milestone:true},
+  ]},
+  {name:"Marketing",color:"#7a2e35",key:"marketing",owner:"Rick",
+   start:new Date(2026,6,1),end:new Date(2026,8,1),
+   tasks:[
+    {name:"Graphics & signage ordered",start:new Date(2026,6,1),end:new Date(2026,7,1)},
+    {name:"Email / social / text campaigns",start:new Date(2026,7,1),end:new Date(2026,7,25)},
+    {name:"Pre-opening flyers distributed",start:new Date(2026,7,10),end:new Date(2026,7,25)},
+    {name:"⚑ Grand opening campaign live",start:new Date(2026,7,25),end:new Date(2026,7,25),milestone:true},
+  ]},
+  {name:"Evaluation setup",color:"#3a4f5c",key:"eval",owner:"Pranav",
+   start:new Date(2026,7,1),end:new Date(2026,8,1),
+   tasks:[
+    {name:"P&L / reporting framework",start:new Date(2026,7,1),end:new Date(2026,7,20)},
+    {name:"L10 dashboard configured",start:new Date(2026,7,15),end:new Date(2026,7,28)},
+    {name:"⚑ KPIs set before first sale",start:new Date(2026,7,28),end:new Date(2026,7,28),milestone:true},
+  ]},
+  {name:"🏪 GRAND OPENING",color:"#3a3222",key:"opening",owner:"Renee",
+   start:new Date(2026,8,1),end:new Date(2026,8,1),
+   tasks:[
+    {name:"⚑ September 1, 2026",start:new Date(2026,8,1),end:new Date(2026,8,1),milestone:true},
+  ]},
+];
+
+function getMonths(){
+  const months=[];
+  let cur=new Date(PROJECT_START.getFullYear(),PROJECT_START.getMonth(),1);
+  while(cur<=PROJECT_END){months.push(new Date(cur));cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);}
+  return months;
+}
+
+let currentView='all';
+
+function setView(v,btn){
+  currentView=v;
+  document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function visiblePhases(){
+  if(currentView==='critical') return phases.filter(p=>['location','permits','construction','staffing','opening'].includes(p.key));
+  if(currentView==='pre') return phases.filter(p=>['location','budget','design'].includes(p.key));
+  if(currentView==='post') return phases.filter(p=>!['location','budget'].includes(p.key));
+  return phases;
+}
+
+function render(){
+  const months=getMonths();
+  const vphases=visiblePhases();
+  const todayP=pct(TODAY);
+
+  const todayLine=`<div class="today-line" style="left:${todayP}%;background:#c0392b"></div>`;
+
+  let html=`<table><thead><tr><th class="lc">Phase / Task</th>`;
+  months.forEach(m=>{
+    const dInMonth=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+    const totalD=diffDays(PROJECT_START,PROJECT_END);
+    const w=(dInMonth/totalD*100).toFixed(2);
+    html+=`<th style="width:${w}%">${MONTH_NAMES[m.getMonth()]}</th>`;
+  });
+  html+=`</tr></thead><tbody>`;
+
+  vphases.forEach(phase=>{
+    const sp=pct(phase.start),ep=pct(phase.end);
+    html+=`<tr class="phase-row">
+      <td class="lc">${phase.name} <span style="font-size:10px;color:#999;font-weight:400">· ${phase.owner||''}</span></td>
+      <td colspan="${months.length}" class="bar-cell">
+        ${todayLine}
+        <div class="bar" style="left:${sp}%;width:${Math.max(ep-sp,0.6)}%;background:${phase.color}"></div>
+        ${phase.key==='opening'?`<div class="milestone-diamond" style="left:calc(${sp}% - 6px);background:#3a3222"></div>`:''}
+      </td>
+    </tr>`;
+
+    phase.tasks.forEach(task=>{
+      const ts=pct(task.start),te=pct(task.end);
+      const isMile=task.milestone||false;
+      html+=`<tr class="task-row">
+        <td class="lc">${task.name}</td>
+        <td colspan="${months.length}" class="bar-cell">
+          ${todayLine}
+          ${isMile
+            ?`<div class="milestone-diamond" style="left:calc(${ts}% - 6px);background:${phase.color}"></div>`
+            :`<div class="bar" style="left:${ts}%;width:${Math.max(te-ts,0.5)}%;background:${phase.color};opacity:0.55"></div>`
+          }
+        </td>
+      </tr>`;
+    });
+  });
+
+  html+=`</tbody></table>`;
+  document.getElementById('chart').innerHTML=html;
+}
+
+render();
+</script>
+</body>
+</html>
