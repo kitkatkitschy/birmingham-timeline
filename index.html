@@ -5,47 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birmingham Store Opening — Project Timeline</title>
 <style>
+/* ── Disc palette ──────────────────────────────────────────────
+   espresso  #3a3222   warm-gold  #c4a96a   tan        #a89070
+   burgundy  #7a2e35   forest     #3d6b5e   slate      #3a4f5c
+   plum      #5c3a4f
+   page bg   #f5ede0   (warm parchment, lighter than old #f7f3eb)
+   chart bg  #fdf8f2   (near-white with warmth)
+   border    #d6c9b0   (tan-toned, replaces cool greys)
+   ──────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f3eb;color:#2e2518;min-width:900px}
-.header{background:#3a3222;color:#f4efe0;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5ede0;color:#2e2518;min-width:900px}
+
+/* Header — espresso with a hint of the warm-gold accent stripe */
+.header{background:linear-gradient(135deg,#3a3222 80%,#4a3e2a 100%);color:#f4efe0;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:3px solid #c4a96a}
 .header-left{flex:1}
 .header-title{font-size:17px;font-weight:500;letter-spacing:0.01em;outline:none;background:transparent;border:none;color:#f4efe0;width:100%;cursor:text}
-.header-title:hover{background:rgba(255,255,255,0.08);border-radius:4px;padding:2px 4px;margin:-2px -4px}
-.header-title:focus{background:rgba(255,255,255,0.12);border-radius:4px;padding:2px 4px;margin:-2px -4px}
+.header-title:hover{background:rgba(196,169,106,0.15);border-radius:4px;padding:2px 4px;margin:-2px -4px}
+.header-title:focus{background:rgba(196,169,106,0.2);border-radius:4px;padding:2px 4px;margin:-2px -4px}
 .sub{font-size:12px;opacity:0.65;margin-top:3px}
-.badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;white-space:nowrap;flex-shrink:0}
+.badge{background:rgba(196,169,106,0.2);border:1px solid rgba(196,169,106,0.45);border-radius:20px;padding:4px 14px;font-size:12px;white-space:nowrap;flex-shrink:0;color:#f0e6cc}
+
+/* Body */
 .body{padding:1.25rem 2rem}
+
+/* View filter buttons */
 .controls{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
-.controls span{font-size:12px;color:#888;margin-right:4px}
-.controls button{padding:5px 14px;border:1px solid #c8bfaa;border-radius:20px;background:#fff;color:#3a3222;font-size:12px;cursor:pointer;font-family:inherit;transition:background 0.15s}
-.controls button:hover{background:#eee8da}
+.controls span{font-size:12px;color:#8a7a60;margin-right:4px}
+.controls button{padding:5px 14px;border:1px solid #c4a96a;border-radius:20px;background:#fdf8f2;color:#3a3222;font-size:12px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.controls button:hover{background:#ede0c8;border-color:#a89070}
 .controls button.active{background:#3a3222;color:#f4efe0;border-color:#3a3222}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:11.5px;color:#666;align-items:center}
+
+/* Legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:11.5px;color:#7a6a50;align-items:center}
 .legend span{display:flex;align-items:center;gap:5px}
 .ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.chart-wrap{background:#fff;border-radius:8px;border:1px solid #e0d8c8;overflow-x:auto}
+
+/* Chart wrapper */
+.chart-wrap{background:#fdf8f2;border-radius:8px;border:1px solid #d6c9b0;overflow-x:auto;box-shadow:0 1px 4px rgba(58,50,34,0.07)}
 .gantt-container{position:relative;min-width:800px}
-.gantt-header{display:flex;background:#f5f0e8;border-bottom:1px solid #e8e0cc;position:sticky;top:0;z-index:20}
-.gantt-header .col-label{min-width:220px;width:220px;padding:7px 10px;font-size:11px;font-weight:500;color:#6b5e48;border-right:1px solid #e8e0cc;flex-shrink:0}
+
+/* Gantt header row */
+.gantt-header{display:flex;background:linear-gradient(180deg,#ede0c8 0%,#e4d4b4 100%);border-bottom:2px solid #c4a96a;position:sticky;top:0;z-index:20}
+.gantt-header .col-label{min-width:220px;width:220px;padding:7px 10px;font-size:11px;font-weight:600;color:#5a4a30;border-right:1px solid #d6c9b0;flex-shrink:0;letter-spacing:0.03em;text-transform:uppercase}
 .gantt-header .months{display:flex;flex:1;position:relative}
-.month-cell{font-size:11px;font-weight:500;color:#6b5e48;padding:7px 4px;text-align:center;border-right:1px solid #e8e0cc;white-space:nowrap;flex-shrink:0}
-.gantt-row{display:flex;border-bottom:1px solid #ede6d8;min-height:30px;align-items:stretch;position:relative}
-.row-label{min-width:220px;width:220px;padding:4px 8px;border-right:1px solid #ede6d8;flex-shrink:0;background:#fff;display:flex;align-items:center;gap:4px;position:relative}
-.row-label.phase-label{background:#f9f5ee;font-size:12.5px;color:#2e2518;font-weight:500}
-.row-label.task-label{padding-left:22px;font-size:11.5px;color:#7a6e5e}
+.month-cell{font-size:11px;font-weight:600;color:#5a4a30;padding:7px 4px;text-align:center;border-right:1px solid #d6c9b0;white-space:nowrap;flex-shrink:0;letter-spacing:0.04em}
+
+/* Gantt rows */
+.gantt-row{display:flex;border-bottom:1px solid #e4d8c4;min-height:30px;align-items:stretch;position:relative}
+.gantt-row:hover .bar-area{background:rgba(196,169,106,0.04)}
+.row-label{min-width:220px;width:220px;padding:4px 8px;border-right:1px solid #e4d8c4;flex-shrink:0;background:#fdf8f2;display:flex;align-items:center;gap:4px;position:relative}
+.row-label.phase-label{background:#ede0c8;font-size:12.5px;color:#2e2518;font-weight:600;border-right:2px solid #c4a96a}
+.row-label.task-label{padding-left:22px;font-size:11.5px;color:#6b5c42}
+
+/* Editable names */
 .editable-name{flex:1;outline:none;background:transparent;border:1px solid transparent;border-radius:3px;padding:2px 4px;font-family:inherit;font-size:inherit;color:inherit;font-weight:inherit;cursor:text;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.editable-name:hover{border-color:#c8bfaa;background:#fff}
+.editable-name:hover{border-color:#c4a96a;background:rgba(255,255,255,0.7)}
 .editable-name:focus{border-color:#3a3222;background:#fff;white-space:normal}
-.drag-handle{cursor:grab;opacity:0.3;font-size:13px;flex-shrink:0;padding:0 2px;user-select:none}
-.drag-handle:hover{opacity:0.7}
+
+/* Drag handle */
+.drag-handle{cursor:grab;opacity:0.25;font-size:13px;flex-shrink:0;padding:0 2px;user-select:none;color:#7a6a50}
+.drag-handle:hover{opacity:0.65}
 .drag-handle:active{cursor:grabbing}
+
+/* Row action buttons */
 .row-actions{display:flex;gap:2px;flex-shrink:0;opacity:0;transition:opacity 0.15s}
 .gantt-row:hover .row-actions{opacity:1}
-.row-btn{border:none;background:none;cursor:pointer;font-size:13px;padding:2px 3px;border-radius:3px;line-height:1;color:#888}
-.row-btn:hover{background:#e8dfd0;color:#2e2518}
-.row-btn.danger:hover{background:#fde8e8;color:#c0392b}
-.bar-area{flex:1;position:relative;overflow:visible}
-.today-line{position:absolute;top:0;bottom:0;width:2px;background:#c0392b;z-index:5;pointer-events:none}
+.row-btn{border:none;background:none;cursor:pointer;font-size:13px;padding:2px 3px;border-radius:3px;line-height:1;color:#9a8a6a}
+.row-btn:hover{background:#ded0b4;color:#2e2518}
+.row-btn.danger:hover{background:#f5ddd8;color:#7a2e35}
+
+/* Bar area */
+.bar-area{flex:1;position:relative;overflow:visible;transition:background 0.1s}
+.today-line{position:absolute;top:0;bottom:0;width:2px;background:#7a2e35;z-index:5;pointer-events:none;opacity:0.8}
 .bar-wrap{position:absolute;top:5px;height:20px;cursor:grab;user-select:none;touch-action:none;z-index:3}
 .bar-wrap:active{cursor:grabbing}
 .bar-inner{height:100%;border-radius:3px;position:relative}
@@ -54,26 +85,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .resize-right{right:0}
 .milestone-diamond{position:absolute;top:8px;width:14px;height:14px;transform:rotate(45deg);border-radius:2px;z-index:4;cursor:grab}
 .row-ghost{opacity:0.35;pointer-events:none}
-.tooltip{position:fixed;background:#2e2518;color:#f4efe0;padding:5px 10px;border-radius:5px;font-size:11px;z-index:200;pointer-events:none;opacity:0;transition:opacity 0.1s;white-space:nowrap}
-.add-row-btn{display:flex;align-items:center;gap:6px;padding:6px 10px;font-size:11.5px;color:#888;cursor:pointer;background:none;border:none;font-family:inherit;width:100%;text-align:left;border-bottom:1px solid #ede6d8;transition:background 0.1s}
-.add-row-btn:hover{background:#faf7f0;color:#3a3222}
-.add-phase-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;font-size:12px;color:#3a3222;cursor:pointer;background:#f9f5ee;border:none;border-top:2px dashed #e0d8c8;font-family:inherit;width:100%;text-align:left;font-weight:500;transition:background 0.1s}
-.add-phase-btn:hover{background:#f0ebe0}
+
+/* Tooltip */
+.tooltip{position:fixed;background:#3a3222;color:#f4efe0;padding:5px 10px;border-radius:5px;font-size:11px;z-index:200;pointer-events:none;opacity:0;transition:opacity 0.1s;white-space:nowrap;border:1px solid #c4a96a}
+
+/* Add task / phase buttons */
+.add-row-btn{display:flex;align-items:center;gap:6px;padding:6px 10px;font-size:11.5px;color:#9a8a6a;cursor:pointer;background:none;border:none;font-family:inherit;width:100%;text-align:left;border-bottom:1px solid #e4d8c4;transition:background 0.1s}
+.add-row-btn:hover{background:#ede0c8;color:#3a3222}
+.add-phase-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;font-size:12px;color:#3a3222;cursor:pointer;background:#ede0c8;border:none;border-top:2px dashed #c4a96a;font-family:inherit;width:100%;text-align:left;font-weight:600;transition:background 0.1s}
+.add-phase-btn:hover{background:#e0ceae}
+
+/* Color picker */
 .color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;cursor:pointer;border:1px solid rgba(0,0,0,0.15)}
-.color-picker-popup{position:fixed;background:#fff;border:1px solid #e0d8c8;border-radius:8px;padding:8px;display:flex;gap:6px;flex-wrap:wrap;width:130px;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.color-picker-popup{position:fixed;background:#fdf8f2;border:1px solid #d6c9b0;border-radius:8px;padding:8px;display:flex;gap:6px;flex-wrap:wrap;width:130px;z-index:300;box-shadow:0 4px 16px rgba(58,50,34,0.18)}
 .cp-swatch{width:20px;height:20px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:transform 0.1s}
 .cp-swatch:hover{transform:scale(1.15)}
-.cp-swatch.selected{border-color:#2e2518}
-.drag-hint{font-size:11px;color:#b0a898;margin-bottom:0.75rem;display:flex;gap:12px;flex-wrap:wrap}
+.cp-swatch.selected{border-color:#3a3222}
+
+/* Checkbox / done state */
+.task-checkbox{width:13px;height:13px;flex-shrink:0;cursor:pointer;accent-color:#3d6b5e;margin-right:1px}
+.task-row.task-done .editable-name{text-decoration:line-through;opacity:0.4}
+.task-row.task-done .bar-wrap .bar-inner{opacity:0.2!important}
+.task-row.task-done .milestone-diamond{opacity:0.25}
+
+/* Hints, footer, save indicator */
+.drag-hint{font-size:11px;color:#a89070;margin-bottom:0.75rem;display:flex;gap:12px;flex-wrap:wrap}
 .drag-hint span{display:flex;align-items:center;gap:4px}
-.footer{margin-top:1rem;font-size:11px;color:#999;display:flex;gap:24px;flex-wrap:wrap}
-.footer strong{color:#666}
-.save-indicator{font-size:11px;color:#3d6b5e;opacity:0;transition:opacity 0.3s;margin-left:auto}
+.footer{margin-top:1rem;font-size:11px;color:#9a8a6a;display:flex;gap:24px;flex-wrap:wrap}
+.footer strong{color:#6b5c42}
+.save-indicator{font-size:11px;color:#3d6b5e;opacity:0;transition:opacity 0.3s;margin-left:auto;font-weight:500}
 .save-indicator.show{opacity:1}
+
+/* Key date cards */
 .key-dates{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem}
-.kd{background:#fff;border:1px solid #e0d8c8;border-radius:6px;padding:7px 12px;font-size:12px;border-left:4px solid #3a3222}
-.kd .dt{font-weight:500;font-size:13px;color:#2e2518}
-.kd .lb{color:#888;font-size:11px;margin-top:1px}
+.kd{background:#fdf8f2;border:1px solid #d6c9b0;border-radius:6px;padding:7px 12px;font-size:12px;border-left:4px solid #c4a96a;box-shadow:0 1px 3px rgba(58,50,34,0.06)}
+.kd .dt{font-weight:600;font-size:13px;color:#3a3222}
+.kd .lb{color:#9a8a6a;font-size:11px;margin-top:1px}
 </style>
 </head>
 <body>
@@ -119,7 +166,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <span>↔ Drag bar ends to resize</span>
     <span>⠿ Drag row handles to reorder</span>
     <span>✎ Click any label to edit text</span>
-    <span>● Click color dot to recolor</span>
+    <span>☑ Checkbox to mark done</span>
   </div>
 
   <div class="chart-wrap"><div class="gantt-container" id="gantt"></div></div>
@@ -138,7 +185,7 @@ const PROJECT_START=new Date(2026,0,15);
 const PROJECT_END=new Date(2026,8,7);
 const TODAY=new Date(2026,5,19);
 const MONTH_NAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
-const COLORS=['#c4a96a','#a89070','#7a2e35','#5c3a4f','#3a4f5c','#3d6b5e','#4a6741','#7a5c3a','#6b3a5c','#3a5c6b','#8b6914','#3a3222'];
+const COLORS=['#3d6b5e','#c4a96a','#7a2e35','#a89070','#3a4f5c','#5c3a4f','#3a3222','#6b4e3d','#4a3e6b','#2e5c4a','#7a6a3a','#4f3a2e'];
 const STORAGE_KEY='cherry_bham_gantt_v4';
 
 const defaultPhases=[
@@ -359,9 +406,11 @@ function render(){
       const tsx=(pct(ts)/100*barAreaWidth).toFixed(1);
       const tw=Math.max((pct(te)-pct(ts))/100*barAreaWidth,6).toFixed(1);
       const isMile=task.milestone||false;
-      html+=`<div class="gantt-row task-row" data-pi="${pi}" data-ti="${ti}">
+      const isDone=task.done||false;
+      html+=`<div class="gantt-row task-row${isDone?' task-done':''}" data-pi="${pi}" data-ti="${ti}">
         <div class="row-label task-label">
           <span class="drag-handle" style="opacity:0.2;font-size:11px">⠿</span>
+          <input type="checkbox" class="task-checkbox" data-check-pi="${pi}" data-check-ti="${ti}" ${isDone?'checked':''} title="Mark done">
           <span class="editable-name" contenteditable="true" data-edit-phase="${pi}" data-edit-task="${ti}" data-edit-field="name" spellcheck="false">${task.name}</span>
           <div class="row-actions">
             <button class="row-btn" data-toggle-mile="${pi}" data-ti="${ti}" title="${isMile?'Make task':'Make milestone'}">${isMile?'&#9670;':'&#9671;'}</button>
@@ -523,6 +572,17 @@ function attachEditing(){
 
 function attachRowButtons(){
   const gantt=document.getElementById('gantt');
+
+  gantt.querySelectorAll('.task-checkbox').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const pi=parseInt(cb.dataset.checkPi),ti=parseInt(cb.dataset.checkTi);
+      phases[pi].tasks[ti].done=cb.checked;
+      const row=cb.closest('.task-row');
+      if(cb.checked) row.classList.add('task-done');
+      else row.classList.remove('task-done');
+      saveData();
+    });
+  });
 
   gantt.querySelectorAll('[data-add-task]').forEach(btn=>{
     btn.addEventListener('click',()=>{
