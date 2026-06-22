@@ -125,7 +125,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="chart-wrap"><div class="gantt-container" id="gantt"></div></div>
 
   <div class="footer">
-    <span><strong>Owner key:</strong> Logan · Renee · Rick · Ryan Kincaid · Admin · Ellen · Dawn · Pranav</span>
+    <span><strong>Owner key:</strong> Logan · Renee (Facilitator) · Rick · Ryan Kincaid · Admin · Ellen · Dawn · Pranav · Todd (Growth)</span>
     <span>Cherry Republic Birmingham PPP</span>
   </div>
 </div>
@@ -160,8 +160,9 @@ const defaultPhases=[
    start:'2026-06-15',end:'2026-08-01',
    tasks:[
     {name:"Site drawings received",start:'2026-06-15',end:'2026-07-01'},
-    {name:"Layout design approved",start:'2026-07-01',end:'2026-07-15'},
-    {name:"Branding / MKT handoff",start:'2026-07-10',end:'2026-08-01'},
+    {name:"Layout design created & approved",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Regional culture reflected in design",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Graphics content needs communicated to Marketing",start:'2026-07-10',end:'2026-08-01'},
   ]},
   {id:'permits',name:"Licensing & permitting",color:"#5c3a4f",owner:"Admin",
    start:'2026-06-15',end:'2026-08-01',
@@ -171,32 +172,43 @@ const defaultPhases=[
     {name:"Sign permit",start:'2026-07-01',end:'2026-07-20'},
     {name:"Dept of Ag inspection",start:'2026-07-15',end:'2026-07-25'},
     {name:"Certificate of occupancy",start:'2026-07-20',end:'2026-08-01'},
+    {name:"Tax filings",start:'2026-06-15',end:'2026-07-15'},
+    {name:"Workplace contracts",start:'2026-06-15',end:'2026-07-15'},
+    {name:"Vendor contracts (GFS, FedEx, Union, etc.)",start:'2026-06-15',end:'2026-07-15'},
+    {name:"Banking setup",start:'2026-06-15',end:'2026-07-01'},
     {name:"⚑ All permits complete — Aug 1",start:'2026-08-01',end:'2026-08-01',milestone:true},
   ]},
   {id:'construction',name:"Project management & construction",color:"#3a4f5c",owner:"Ryan Kincaid",
    start:'2026-06-15',end:'2026-08-18',
    tasks:[
-    {name:"Timeline & estimates approved",start:'2026-06-15',end:'2026-07-01'},
-    {name:"Construction drawings submitted",start:'2026-07-01',end:'2026-07-10'},
-    {name:"Contractor bidding complete",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Projected timeline supplied",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Estimates approved",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Construction drawings approved",start:'2026-07-01',end:'2026-07-10'},
+    {name:"Construction drawings submitted for permitting",start:'2026-07-01',end:'2026-07-10'},
+    {name:"Contractor bidding process completed",start:'2026-07-01',end:'2026-07-15'},
     {name:"Demolition",start:'2026-07-15',end:'2026-07-25'},
     {name:"Construction phase",start:'2026-07-25',end:'2026-08-11'},
     {name:"Finish work & final inspections",start:'2026-08-11',end:'2026-08-18'},
     {name:"⚑ Construction complete — Aug 18",start:'2026-08-18',end:'2026-08-18',milestone:true},
   ]},
-  {id:'staffing',name:"Staffing",color:"#3d6b5e",owner:"Ellen",
+  {id:'staffing',name:"Staffing & operations",color:"#3d6b5e",owner:"Ellen",
    start:'2026-06-15',end:'2026-08-22',
    tasks:[
     {name:"Management team identified",start:'2026-06-15',end:'2026-07-01'},
     {name:"Recruiting & hiring",start:'2026-07-01',end:'2026-08-01'},
     {name:"Staff training",start:'2026-08-01',end:'2026-08-22'},
+    {name:"Bar setup",start:'2026-08-10',end:'2026-08-22'},
+    {name:"Store supply ordering setup",start:'2026-08-01',end:'2026-08-18'},
     {name:"⚑ Team ready — Aug 22",start:'2026-08-22',end:'2026-08-22',milestone:true},
   ]},
   {id:'logistics',name:"Logistics & IT",color:"#3d6b5e",owner:"Dawn",
    start:'2026-07-01',end:'2026-08-29',
    tasks:[
+    {name:"Broadband & IT requirements",start:'2026-07-01',end:'2026-07-15'},
     {name:"POS & IT hub setup",start:'2026-07-15',end:'2026-08-15'},
     {name:"Security system",start:'2026-08-01',end:'2026-08-18'},
+    {name:"Banking & finance setup",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Shipping program setup",start:'2026-07-01',end:'2026-07-15'},
     {name:"Fixture deliveries",start:'2026-08-10',end:'2026-08-20'},
     {name:"Initial inventory delivered",start:'2026-08-18',end:'2026-08-28'},
     {name:"⚑ Floor set & merchandising done",start:'2026-08-29',end:'2026-08-29',milestone:true},
@@ -205,8 +217,10 @@ const defaultPhases=[
    start:'2026-07-01',end:'2026-09-01',
    tasks:[
     {name:"Graphics & signage ordered",start:'2026-07-01',end:'2026-08-01'},
-    {name:"Email / social / text campaigns",start:'2026-08-01',end:'2026-08-25'},
-    {name:"Pre-opening flyers distributed",start:'2026-08-10',end:'2026-08-25'},
+    {name:"Exterior & interior signage monitored",start:'2026-07-01',end:'2026-08-01'},
+    {name:"Initial flyers created & distributed",start:'2026-08-10',end:'2026-08-25'},
+    {name:"Email, social media & texting campaigns",start:'2026-08-01',end:'2026-08-25'},
+    {name:"Grand opening event",start:'2026-08-25',end:'2026-09-01'},
     {name:"⚑ Grand opening campaign live",start:'2026-08-25',end:'2026-08-25',milestone:true},
   ]},
   {id:'eval',name:"Evaluation setup",color:"#3a4f5c",owner:"Pranav",
@@ -214,6 +228,7 @@ const defaultPhases=[
    tasks:[
     {name:"P&L / reporting framework",start:'2026-08-01',end:'2026-08-20'},
     {name:"L10 dashboard configured",start:'2026-08-15',end:'2026-08-28'},
+    {name:"Successes & challenges from store manager captured",start:'2026-08-20',end:'2026-09-01'},
     {name:"⚑ KPIs set before first sale",start:'2026-08-28',end:'2026-08-28',milestone:true},
   ]},
   {id:'opening',name:"🏪 GRAND OPENING",color:"#3a3222",owner:"Renee",
