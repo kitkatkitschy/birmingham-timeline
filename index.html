@@ -7,39 +7,71 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f3eb;color:#2e2518;min-width:900px}
-.header{background:#3a3222;color:#f4efe0;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between}
-.header h1{font-size:18px;font-weight:500;letter-spacing:0.01em}
-.header .sub{font-size:12px;opacity:0.65;margin-top:3px}
-.header .badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;white-space:nowrap}
+.header{background:#3a3222;color:#f4efe0;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.header-left{flex:1}
+.header-title{font-size:17px;font-weight:500;letter-spacing:0.01em;outline:none;background:transparent;border:none;color:#f4efe0;width:100%;cursor:text}
+.header-title:hover{background:rgba(255,255,255,0.08);border-radius:4px;padding:2px 4px;margin:-2px -4px}
+.header-title:focus{background:rgba(255,255,255,0.12);border-radius:4px;padding:2px 4px;margin:-2px -4px}
+.sub{font-size:12px;opacity:0.65;margin-top:3px}
+.badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;white-space:nowrap;flex-shrink:0}
 .body{padding:1.25rem 2rem}
 .controls{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
 .controls span{font-size:12px;color:#888;margin-right:4px}
 .controls button{padding:5px 14px;border:1px solid #c8bfaa;border-radius:20px;background:#fff;color:#3a3222;font-size:12px;cursor:pointer;font-family:inherit;transition:background 0.15s}
 .controls button:hover{background:#eee8da}
 .controls button.active{background:#3a3222;color:#f4efe0;border-color:#3a3222}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1.25rem;font-size:11.5px;color:#666}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:11.5px;color:#666;align-items:center}
 .legend span{display:flex;align-items:center;gap:5px}
 .ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.chart-wrap{background:#fff;border-radius:8px;border:1px solid #e0d8c8;overflow:hidden}
-table{border-collapse:collapse;width:100%;min-width:800px}
-thead th{background:#f5f0e8;color:#6b5e48;font-weight:500;font-size:11px;padding:7px 4px;text-align:center;border:1px solid #e8e0cc;white-space:nowrap}
-thead th.lc{text-align:left;min-width:190px;padding-left:10px}
-tbody tr{transition:background 0.1s}
-tbody tr:hover td{background:#faf7f0}
-tbody tr td{border:1px solid #ede6d8;padding:0 2px;vertical-align:middle}
-tbody tr td.lc{padding:5px 10px;white-space:nowrap;background:#fff}
-tbody tr.phase-row td{background:#f9f5ee}
-tbody tr.phase-row td.lc{font-weight:500;font-size:12.5px;color:#2e2518}
-tbody tr.task-row td.lc{font-size:11.5px;color:#7a6e5e;padding-left:22px}
-.bar-cell{position:relative;height:24px}
-.bar{position:absolute;top:4px;height:16px;border-radius:3px}
-.milestone-diamond{position:absolute;top:5px;width:13px;height:13px;transform:rotate(45deg);border-radius:2px;z-index:2}
-.today-line{position:absolute;top:0;bottom:0;width:2px;z-index:5;pointer-events:none}
-.today-label{position:absolute;top:1px;font-size:9px;font-weight:600;color:#c0392b;z-index:6;white-space:nowrap;transform:translateX(-50%)}
+.chart-wrap{background:#fff;border-radius:8px;border:1px solid #e0d8c8;overflow-x:auto}
+.gantt-container{position:relative;min-width:800px}
+.gantt-header{display:flex;background:#f5f0e8;border-bottom:1px solid #e8e0cc;position:sticky;top:0;z-index:20}
+.gantt-header .col-label{min-width:220px;width:220px;padding:7px 10px;font-size:11px;font-weight:500;color:#6b5e48;border-right:1px solid #e8e0cc;flex-shrink:0}
+.gantt-header .months{display:flex;flex:1;position:relative}
+.month-cell{font-size:11px;font-weight:500;color:#6b5e48;padding:7px 4px;text-align:center;border-right:1px solid #e8e0cc;white-space:nowrap;flex-shrink:0}
+.gantt-row{display:flex;border-bottom:1px solid #ede6d8;min-height:30px;align-items:stretch;position:relative}
+.row-label{min-width:220px;width:220px;padding:4px 8px;border-right:1px solid #ede6d8;flex-shrink:0;background:#fff;display:flex;align-items:center;gap:4px;position:relative}
+.row-label.phase-label{background:#f9f5ee;font-size:12.5px;color:#2e2518;font-weight:500}
+.row-label.task-label{padding-left:22px;font-size:11.5px;color:#7a6e5e}
+.editable-name{flex:1;outline:none;background:transparent;border:1px solid transparent;border-radius:3px;padding:2px 4px;font-family:inherit;font-size:inherit;color:inherit;font-weight:inherit;cursor:text;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.editable-name:hover{border-color:#c8bfaa;background:#fff}
+.editable-name:focus{border-color:#3a3222;background:#fff;white-space:normal}
+.drag-handle{cursor:grab;opacity:0.3;font-size:13px;flex-shrink:0;padding:0 2px;user-select:none}
+.drag-handle:hover{opacity:0.7}
+.drag-handle:active{cursor:grabbing}
+.row-actions{display:flex;gap:2px;flex-shrink:0;opacity:0;transition:opacity 0.15s}
+.gantt-row:hover .row-actions{opacity:1}
+.row-btn{border:none;background:none;cursor:pointer;font-size:13px;padding:2px 3px;border-radius:3px;line-height:1;color:#888}
+.row-btn:hover{background:#e8dfd0;color:#2e2518}
+.row-btn.danger:hover{background:#fde8e8;color:#c0392b}
+.bar-area{flex:1;position:relative;overflow:visible}
+.today-line{position:absolute;top:0;bottom:0;width:2px;background:#c0392b;z-index:5;pointer-events:none}
+.bar-wrap{position:absolute;top:5px;height:20px;cursor:grab;user-select:none;touch-action:none;z-index:3}
+.bar-wrap:active{cursor:grabbing}
+.bar-inner{height:100%;border-radius:3px;position:relative}
+.resize-handle{position:absolute;top:0;bottom:0;width:8px;cursor:ew-resize;z-index:10}
+.resize-left{left:0}
+.resize-right{right:0}
+.milestone-diamond{position:absolute;top:8px;width:14px;height:14px;transform:rotate(45deg);border-radius:2px;z-index:4;cursor:grab}
+.row-ghost{opacity:0.35;pointer-events:none}
+.tooltip{position:fixed;background:#2e2518;color:#f4efe0;padding:5px 10px;border-radius:5px;font-size:11px;z-index:200;pointer-events:none;opacity:0;transition:opacity 0.1s;white-space:nowrap}
+.add-row-btn{display:flex;align-items:center;gap:6px;padding:6px 10px;font-size:11.5px;color:#888;cursor:pointer;background:none;border:none;font-family:inherit;width:100%;text-align:left;border-bottom:1px solid #ede6d8;transition:background 0.1s}
+.add-row-btn:hover{background:#faf7f0;color:#3a3222}
+.add-phase-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;font-size:12px;color:#3a3222;cursor:pointer;background:#f9f5ee;border:none;border-top:2px dashed #e0d8c8;font-family:inherit;width:100%;text-align:left;font-weight:500;transition:background 0.1s}
+.add-phase-btn:hover{background:#f0ebe0}
+.color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;cursor:pointer;border:1px solid rgba(0,0,0,0.15)}
+.color-picker-popup{position:fixed;background:#fff;border:1px solid #e0d8c8;border-radius:8px;padding:8px;display:flex;gap:6px;flex-wrap:wrap;width:130px;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.cp-swatch{width:20px;height:20px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:transform 0.1s}
+.cp-swatch:hover{transform:scale(1.15)}
+.cp-swatch.selected{border-color:#2e2518}
+.drag-hint{font-size:11px;color:#b0a898;margin-bottom:0.75rem;display:flex;gap:12px;flex-wrap:wrap}
+.drag-hint span{display:flex;align-items:center;gap:4px}
 .footer{margin-top:1rem;font-size:11px;color:#999;display:flex;gap:24px;flex-wrap:wrap}
 .footer strong{color:#666}
-.key-dates{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1.25rem}
-.kd{background:#fff;border:1px solid #e0d8c8;border-radius:6px;padding:8px 14px;font-size:12px;border-left:4px solid #3a3222}
+.save-indicator{font-size:11px;color:#3d6b5e;opacity:0;transition:opacity 0.3s;margin-left:auto}
+.save-indicator.show{opacity:1}
+.key-dates{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem}
+.kd{background:#fff;border:1px solid #e0d8c8;border-radius:6px;padding:7px 12px;font-size:12px;border-left:4px solid #3a3222}
 .kd .dt{font-weight:500;font-size:13px;color:#2e2518}
 .kd .lb{color:#888;font-size:11px;margin-top:1px}
 </style>
@@ -47,15 +79,14 @@ tbody tr.task-row td.lc{font-size:11.5px;color:#7a6e5e;padding-left:22px}
 <body>
 
 <div class="header">
-  <div>
-    <div class="header h1">Birmingham Store Opening — Project Timeline</div>
+  <div class="header-left">
+    <div contenteditable="true" class="header-title" id="projTitle">Birmingham Store Opening — Project Timeline</div>
     <div class="sub">Cherry Republic · Working backward from September 1, 2026</div>
   </div>
   <div class="badge">📅 Opening: Sep 1, 2026</div>
 </div>
 
 <div class="body">
-
   <div class="key-dates">
     <div class="kd"><div class="dt">Aug 1</div><div class="lb">All permits complete</div></div>
     <div class="kd"><div class="dt">Aug 18</div><div class="lb">Construction done</div></div>
@@ -70,6 +101,7 @@ tbody tr.task-row td.lc{font-size:11.5px;color:#7a6e5e;padding-left:22px}
     <button onclick="setView('critical',this)">Critical path</button>
     <button onclick="setView('pre',this)">Pre-lease</button>
     <button onclick="setView('post',this)">Post-lease</button>
+    <span class="save-indicator" id="saveIndicator">✓ Saved</span>
   </div>
 
   <div class="legend">
@@ -79,121 +111,181 @@ tbody tr.task-row td.lc{font-size:11.5px;color:#7a6e5e;padding-left:22px}
     <span><span class="ld" style="background:#3a4f5c"></span>Construction / PM</span>
     <span><span class="ld" style="background:#a89070"></span>Budget / Finance</span>
     <span><span class="ld" style="background:#c4a96a"></span>Location / Lease</span>
-    <span><span class="ld" style="background:#999;transform:rotate(45deg);border-radius:1px"></span>◆ Milestone</span>
-    <span><span style="display:inline-block;width:10px;height:10px;background:#c0392b;border-radius:2px"></span>Today</span>
+    <span><span class="ld" style="background:#999;transform:rotate(45deg)"></span>◆ Milestone</span>
   </div>
 
-  <div class="chart-wrap">
-    <div id="chart"></div>
+  <div class="drag-hint">
+    <span>⟺ Drag bars to shift dates</span>
+    <span>↔ Drag bar ends to resize</span>
+    <span>⠿ Drag row handles to reorder</span>
+    <span>✎ Click any label to edit text</span>
+    <span>● Click color dot to recolor</span>
   </div>
+
+  <div class="chart-wrap"><div class="gantt-container" id="gantt"></div></div>
 
   <div class="footer">
-    <span><strong>Owner key:</strong> Logan (Location) · Renee (Budget / Facilitation) · Rick (Design, Marketing) · Ryan Kincaid (Construction) · Admin (Permitting) · Ellen (Staffing) · Dawn (Logistics &amp; IT) · Pranav (Evaluation)</span>
-    <span>Generated Jun 16, 2026 · Cherry Republic Birmingham PPP</span>
+    <span><strong>Owner key:</strong> Logan · Renee · Rick · Ryan Kincaid · Admin · Ellen · Dawn · Pranav</span>
+    <span>Cherry Republic Birmingham PPP</span>
   </div>
-
 </div>
 
+<div class="tooltip" id="tooltip"></div>
+<div class="color-picker-popup" id="colorPicker" style="display:none"></div>
+
 <script>
-const PROJECT_START = new Date(2026,0,15);
-const PROJECT_END   = new Date(2026,8,7);
-const TODAY         = new Date(2026,5,16);
-const MONTH_NAMES   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+const PROJECT_START=new Date(2026,0,15);
+const PROJECT_END=new Date(2026,8,7);
+const TODAY=new Date(2026,5,19);
+const MONTH_NAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+const COLORS=['#c4a96a','#a89070','#7a2e35','#5c3a4f','#3a4f5c','#3d6b5e','#4a6741','#7a5c3a','#6b3a5c','#3a5c6b','#8b6914','#3a3222'];
+const STORAGE_KEY='cherry_bham_gantt_v4';
 
-function diffDays(a,b){return Math.round((b-a)/864e5);}
-function pct(d){return Math.max(0,Math.min(100,diffDays(PROJECT_START,d)/diffDays(PROJECT_START,PROJECT_END)*100));}
-function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
-
-const phases=[
-  {name:"Location evaluation & lease",color:"#c4a96a",key:"location",owner:"Logan",
-   start:new Date(2026,0,15),end:new Date(2026,5,30),
+const defaultPhases=[
+  {id:'location',name:"Location evaluation & lease",color:"#c4a96a",owner:"Logan",
+   start:'2026-01-15',end:'2026-06-30',
    tasks:[
-    {name:"Site analysis & demographics",start:new Date(2026,0,15),end:new Date(2026,2,1)},
-    {name:"Lease negotiation",start:new Date(2026,2,1),end:new Date(2026,5,15)},
-    {name:"⚑ Lease executed",start:new Date(2026,5,30),end:new Date(2026,5,30),milestone:true},
+    {name:"Site analysis & demographics",start:'2026-01-15',end:'2026-03-01'},
+    {name:"Lease negotiation",start:'2026-03-01',end:'2026-06-15'},
+    {name:"⚑ Lease executed",start:'2026-06-30',end:'2026-06-30',milestone:true},
   ]},
-  {name:"Budget & forecasting",color:"#a89070",key:"budget",owner:"Renee",
-   start:new Date(2026,1,1),end:new Date(2026,6,15),
+  {id:'budget',name:"Budget & forecasting",color:"#a89070",owner:"Renee",
+   start:'2026-02-01',end:'2026-07-15',
    tasks:[
-    {name:"Build budget initiated",start:new Date(2026,1,1),end:new Date(2026,3,1)},
-    {name:"Expense tracking tool live",start:new Date(2026,3,1),end:new Date(2026,5,15)},
-    {name:"Finance check-in cadence set",start:new Date(2026,5,15),end:new Date(2026,6,15)},
+    {name:"Build budget initiated",start:'2026-02-01',end:'2026-04-01'},
+    {name:"Expense tracking tool live",start:'2026-04-01',end:'2026-06-15'},
+    {name:"Finance check-in cadence set",start:'2026-06-15',end:'2026-07-15'},
   ]},
-  {name:"Design",color:"#7a2e35",key:"design",owner:"Rick",
-   start:new Date(2026,5,15),end:new Date(2026,7,1),
+  {id:'design',name:"Design",color:"#7a2e35",owner:"Rick",
+   start:'2026-06-15',end:'2026-08-01',
    tasks:[
-    {name:"Site drawings received",start:new Date(2026,5,15),end:new Date(2026,6,1)},
-    {name:"Layout design approved",start:new Date(2026,6,1),end:new Date(2026,6,15)},
-    {name:"Branding / MKT handoff",start:new Date(2026,6,10),end:new Date(2026,7,1)},
+    {name:"Site drawings received",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Layout design approved",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Branding / MKT handoff",start:'2026-07-10',end:'2026-08-01'},
   ]},
-  {name:"Licensing & permitting",color:"#5c3a4f",key:"permits",owner:"Admin",
-   start:new Date(2026,5,15),end:new Date(2026,7,1),
+  {id:'permits',name:"Licensing & permitting",color:"#5c3a4f",owner:"Admin",
+   start:'2026-06-15',end:'2026-08-01',
    tasks:[
-    {name:"Business license (out of state)",start:new Date(2026,5,15),end:new Date(2026,6,15)},
-    {name:"Liquor license filed",start:new Date(2026,5,15),end:new Date(2026,6,1)},
-    {name:"Sign permit",start:new Date(2026,6,1),end:new Date(2026,6,20)},
-    {name:"Dept of Ag inspection",start:new Date(2026,6,15),end:new Date(2026,6,25)},
-    {name:"Certificate of occupancy",start:new Date(2026,6,20),end:new Date(2026,7,1)},
-    {name:"⚑ All permits complete — Aug 1",start:new Date(2026,7,1),end:new Date(2026,7,1),milestone:true},
+    {name:"Business license (out of state)",start:'2026-06-15',end:'2026-07-15'},
+    {name:"Liquor license filed",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Sign permit",start:'2026-07-01',end:'2026-07-20'},
+    {name:"Dept of Ag inspection",start:'2026-07-15',end:'2026-07-25'},
+    {name:"Certificate of occupancy",start:'2026-07-20',end:'2026-08-01'},
+    {name:"⚑ All permits complete — Aug 1",start:'2026-08-01',end:'2026-08-01',milestone:true},
   ]},
-  {name:"Project management & construction",color:"#3a4f5c",key:"construction",owner:"Ryan Kincaid",
-   start:new Date(2026,5,15),end:new Date(2026,7,18),
+  {id:'construction',name:"Project management & construction",color:"#3a4f5c",owner:"Ryan Kincaid",
+   start:'2026-06-15',end:'2026-08-18',
    tasks:[
-    {name:"Timeline & estimates approved",start:new Date(2026,5,15),end:new Date(2026,6,1)},
-    {name:"Construction drawings submitted",start:new Date(2026,6,1),end:new Date(2026,6,10)},
-    {name:"Contractor bidding complete",start:new Date(2026,6,1),end:new Date(2026,6,15)},
-    {name:"Demolition",start:new Date(2026,6,15),end:new Date(2026,6,25)},
-    {name:"Construction phase",start:new Date(2026,6,25),end:new Date(2026,7,11)},
-    {name:"Finish work & final inspections",start:new Date(2026,7,11),end:new Date(2026,7,18)},
-    {name:"⚑ Construction complete — Aug 18",start:new Date(2026,7,18),end:new Date(2026,7,18),milestone:true},
+    {name:"Timeline & estimates approved",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Construction drawings submitted",start:'2026-07-01',end:'2026-07-10'},
+    {name:"Contractor bidding complete",start:'2026-07-01',end:'2026-07-15'},
+    {name:"Demolition",start:'2026-07-15',end:'2026-07-25'},
+    {name:"Construction phase",start:'2026-07-25',end:'2026-08-11'},
+    {name:"Finish work & final inspections",start:'2026-08-11',end:'2026-08-18'},
+    {name:"⚑ Construction complete — Aug 18",start:'2026-08-18',end:'2026-08-18',milestone:true},
   ]},
-  {name:"Staffing",color:"#3d6b5e",key:"staffing",owner:"Ellen",
-   start:new Date(2026,5,15),end:new Date(2026,7,22),
+  {id:'staffing',name:"Staffing",color:"#3d6b5e",owner:"Ellen",
+   start:'2026-06-15',end:'2026-08-22',
    tasks:[
-    {name:"Management team identified",start:new Date(2026,5,15),end:new Date(2026,6,1)},
-    {name:"Recruiting & hiring",start:new Date(2026,6,1),end:new Date(2026,7,1)},
-    {name:"Staff training",start:new Date(2026,7,1),end:new Date(2026,7,22)},
-    {name:"⚑ Team ready — Aug 22",start:new Date(2026,7,22),end:new Date(2026,7,22),milestone:true},
+    {name:"Management team identified",start:'2026-06-15',end:'2026-07-01'},
+    {name:"Recruiting & hiring",start:'2026-07-01',end:'2026-08-01'},
+    {name:"Staff training",start:'2026-08-01',end:'2026-08-22'},
+    {name:"⚑ Team ready — Aug 22",start:'2026-08-22',end:'2026-08-22',milestone:true},
   ]},
-  {name:"Logistics & IT",color:"#3d6b5e",key:"logistics",owner:"Dawn",
-   start:new Date(2026,6,1),end:new Date(2026,7,29),
+  {id:'logistics',name:"Logistics & IT",color:"#3d6b5e",owner:"Dawn",
+   start:'2026-07-01',end:'2026-08-29',
    tasks:[
-    {name:"POS & IT hub setup",start:new Date(2026,6,15),end:new Date(2026,7,15)},
-    {name:"Security system",start:new Date(2026,7,1),end:new Date(2026,7,18)},
-    {name:"Fixture deliveries",start:new Date(2026,7,10),end:new Date(2026,7,20)},
-    {name:"Initial inventory delivered",start:new Date(2026,7,18),end:new Date(2026,7,28)},
-    {name:"⚑ Floor set & merchandising done",start:new Date(2026,7,29),end:new Date(2026,7,29),milestone:true},
+    {name:"POS & IT hub setup",start:'2026-07-15',end:'2026-08-15'},
+    {name:"Security system",start:'2026-08-01',end:'2026-08-18'},
+    {name:"Fixture deliveries",start:'2026-08-10',end:'2026-08-20'},
+    {name:"Initial inventory delivered",start:'2026-08-18',end:'2026-08-28'},
+    {name:"⚑ Floor set & merchandising done",start:'2026-08-29',end:'2026-08-29',milestone:true},
   ]},
-  {name:"Marketing",color:"#7a2e35",key:"marketing",owner:"Rick",
-   start:new Date(2026,6,1),end:new Date(2026,8,1),
+  {id:'marketing',name:"Marketing",color:"#7a2e35",owner:"Rick",
+   start:'2026-07-01',end:'2026-09-01',
    tasks:[
-    {name:"Graphics & signage ordered",start:new Date(2026,6,1),end:new Date(2026,7,1)},
-    {name:"Email / social / text campaigns",start:new Date(2026,7,1),end:new Date(2026,7,25)},
-    {name:"Pre-opening flyers distributed",start:new Date(2026,7,10),end:new Date(2026,7,25)},
-    {name:"⚑ Grand opening campaign live",start:new Date(2026,7,25),end:new Date(2026,7,25),milestone:true},
+    {name:"Graphics & signage ordered",start:'2026-07-01',end:'2026-08-01'},
+    {name:"Email / social / text campaigns",start:'2026-08-01',end:'2026-08-25'},
+    {name:"Pre-opening flyers distributed",start:'2026-08-10',end:'2026-08-25'},
+    {name:"⚑ Grand opening campaign live",start:'2026-08-25',end:'2026-08-25',milestone:true},
   ]},
-  {name:"Evaluation setup",color:"#3a4f5c",key:"eval",owner:"Pranav",
-   start:new Date(2026,7,1),end:new Date(2026,8,1),
+  {id:'eval',name:"Evaluation setup",color:"#3a4f5c",owner:"Pranav",
+   start:'2026-08-01',end:'2026-09-01',
    tasks:[
-    {name:"P&L / reporting framework",start:new Date(2026,7,1),end:new Date(2026,7,20)},
-    {name:"L10 dashboard configured",start:new Date(2026,7,15),end:new Date(2026,7,28)},
-    {name:"⚑ KPIs set before first sale",start:new Date(2026,7,28),end:new Date(2026,7,28),milestone:true},
+    {name:"P&L / reporting framework",start:'2026-08-01',end:'2026-08-20'},
+    {name:"L10 dashboard configured",start:'2026-08-15',end:'2026-08-28'},
+    {name:"⚑ KPIs set before first sale",start:'2026-08-28',end:'2026-08-28',milestone:true},
   ]},
-  {name:"🏪 GRAND OPENING",color:"#3a3222",key:"opening",owner:"Renee",
-   start:new Date(2026,8,1),end:new Date(2026,8,1),
+  {id:'opening',name:"🏪 GRAND OPENING",color:"#3a3222",owner:"Renee",
+   start:'2026-09-01',end:'2026-09-01',
    tasks:[
-    {name:"⚑ September 1, 2026",start:new Date(2026,8,1),end:new Date(2026,8,1),milestone:true},
+    {name:"⚑ September 1, 2026",start:'2026-09-01',end:'2026-09-01',milestone:true},
   ]},
 ];
 
-function getMonths(){
-  const months=[];
-  let cur=new Date(PROJECT_START.getFullYear(),PROJECT_START.getMonth(),1);
-  while(cur<=PROJECT_END){months.push(new Date(cur));cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);}
-  return months;
+function ds(s){return new Date(s+'T12:00:00');}
+function sd(d){return d.toISOString().slice(0,10);}
+function diffDays(a,b){return Math.round((b-a)/864e5);}
+function totalDays(){return diffDays(PROJECT_START,PROJECT_END);}
+function pct(d){return Math.max(0,Math.min(100,diffDays(PROJECT_START,d)/totalDays()*100));}
+function dateFromPct(p){const d=new Date(PROJECT_START);d.setDate(d.getDate()+Math.round(p/100*totalDays()));return d;}
+function fmtDate(d){return MONTH_NAMES[d.getMonth()]+' '+d.getDate();}
+function uid(){return Math.random().toString(36).slice(2,8);}
+
+let phases=[];
+let phaseOrder=[];
+let currentView='all';
+let barAreaWidth=600;
+
+function loadData(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const saved=JSON.parse(raw);
+      phases=saved.phases;
+      phaseOrder=saved.phaseOrder;
+      const title=saved.title;
+      if(title) document.getElementById('projTitle').textContent=title;
+      return;
+    }
+  }catch(e){}
+  phases=JSON.parse(JSON.stringify(defaultPhases));
+  phaseOrder=phases.map((_,i)=>i);
 }
 
-let currentView='all';
+let saveTimer=null;
+function saveData(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    try{
+      localStorage.setItem(STORAGE_KEY,JSON.stringify({
+        phases,phaseOrder,title:document.getElementById('projTitle').textContent
+      }));
+      const ind=document.getElementById('saveIndicator');
+      ind.classList.add('show');
+      setTimeout(()=>ind.classList.remove('show'),2000);
+    }catch(e){}
+  },400);
+}
+
+const tooltip=document.getElementById('tooltip');
+function showTip(e,t){tooltip.innerHTML=t;tooltip.style.opacity='1';moveTip(e);}
+function moveTip(e){tooltip.style.left=(e.clientX+14)+'px';tooltip.style.top=(e.clientY-32)+'px';}
+function hideTip(){tooltip.style.opacity='0';}
+
+function getMonths(){
+  const m=[];let c=new Date(PROJECT_START.getFullYear(),PROJECT_START.getMonth(),1);
+  while(c<=PROJECT_END){m.push(new Date(c));c=new Date(c.getFullYear(),c.getMonth()+1,1);}
+  return m;
+}
+
+function visiblePhaseIndices(){
+  let keys=null;
+  if(currentView==='critical') keys=['location','permits','construction','staffing','opening'];
+  else if(currentView==='pre') keys=['location','budget','design'];
+  else if(currentView==='post') keys=phases.map(p=>p.id).filter(k=>!['location','budget'].includes(k));
+  return phaseOrder.filter(i=>!keys||keys.includes(phases[i].id));
+}
 
 function setView(v,btn){
   currentView=v;
@@ -202,60 +294,308 @@ function setView(v,btn){
   render();
 }
 
-function visiblePhases(){
-  if(currentView==='critical') return phases.filter(p=>['location','permits','construction','staffing','opening'].includes(p.key));
-  if(currentView==='pre') return phases.filter(p=>['location','budget','design'].includes(p.key));
-  if(currentView==='post') return phases.filter(p=>!['location','budget'].includes(p.key));
-  return phases;
-}
-
 function render(){
   const months=getMonths();
-  const vphases=visiblePhases();
-  const todayP=pct(TODAY);
+  const visIdxs=visiblePhaseIndices();
+  const gantt=document.getElementById('gantt');
+  const cw=gantt.parentElement.clientWidth;
+  barAreaWidth=Math.max(cw-224,500);
 
-  const todayLine=`<div class="today-line" style="left:${todayP}%;background:#c0392b"></div>`;
+  const todayX=(pct(TODAY)/100*barAreaWidth).toFixed(1);
 
-  let html=`<table><thead><tr><th class="lc">Phase / Task</th>`;
+  let html='<div class="gantt-header"><div class="col-label">Phase / Task</div><div class="months" style="width:'+barAreaWidth+'px">';
   months.forEach(m=>{
-    const dInMonth=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
-    const totalD=diffDays(PROJECT_START,PROJECT_END);
-    const w=(dInMonth/totalD*100).toFixed(2);
-    html+=`<th style="width:${w}%">${MONTH_NAMES[m.getMonth()]}</th>`;
+    const dim=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+    const w=(dim/totalDays()*barAreaWidth).toFixed(1);
+    html+=`<div class="month-cell" style="width:${w}px">${MONTH_NAMES[m.getMonth()]}</div>`;
   });
-  html+=`</tr></thead><tbody>`;
+  html+='</div></div>';
 
-  vphases.forEach(phase=>{
-    const sp=pct(phase.start),ep=pct(phase.end);
-    html+=`<tr class="phase-row">
-      <td class="lc">${phase.name} <span style="font-size:10px;color:#999;font-weight:400">· ${phase.owner||''}</span></td>
-      <td colspan="${months.length}" class="bar-cell">
-        ${todayLine}
-        <div class="bar" style="left:${sp}%;width:${Math.max(ep-sp,0.6)}%;background:${phase.color}"></div>
-        ${phase.key==='opening'?`<div class="milestone-diamond" style="left:calc(${sp}% - 6px);background:#3a3222"></div>`:''}
-      </td>
-    </tr>`;
+  visIdxs.forEach(pi=>{
+    const ph=phases[pi];
+    const pStart=ds(ph.start),pEnd=ds(ph.end);
+    const sx=(pct(pStart)/100*barAreaWidth).toFixed(1);
+    const bw=Math.max((pct(pEnd)-pct(pStart))/100*barAreaWidth,6).toFixed(1);
 
-    phase.tasks.forEach(task=>{
-      const ts=pct(task.start),te=pct(task.end);
+    html+=`<div class="gantt-row phase-row" data-pi="${pi}">
+      <div class="row-label phase-label">
+        <span class="drag-handle" data-drag-phase="${pi}" title="Drag to reorder">⠿</span>
+        <span class="color-dot" style="background:${ph.color}" data-color-phase="${pi}" title="Change color"></span>
+        <span class="editable-name" contenteditable="true" data-edit-phase="${pi}" data-edit-field="name" spellcheck="false">${ph.name}</span>
+        <span style="font-size:10px;color:#aaa;flex-shrink:0;padding-left:2px" contenteditable="true" data-edit-phase="${pi}" data-edit-field="owner" spellcheck="false" title="Edit owner">${ph.owner||''}</span>
+        <div class="row-actions">
+          <button class="row-btn" data-add-task="${pi}" title="Add task">&#xff0b;</button>
+          <button class="row-btn danger" data-del-phase="${pi}" title="Delete phase">&#x2715;</button>
+        </div>
+      </div>
+      <div class="bar-area" style="width:${barAreaWidth}px;height:30px;position:relative">
+        <div class="today-line" style="left:${todayX}px"></div>
+        <div class="bar-wrap" data-pi="${pi}" data-ti="-1" style="left:${sx}px;width:${bw}px">
+          <div class="bar-inner" style="background:${ph.color}">
+            <div class="resize-handle resize-left" data-dir="l"></div>
+            <div class="resize-handle resize-right" data-dir="r"></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+    ph.tasks.forEach((task,ti)=>{
+      const ts=ds(task.start),te=ds(task.end);
+      const tsx=(pct(ts)/100*barAreaWidth).toFixed(1);
+      const tw=Math.max((pct(te)-pct(ts))/100*barAreaWidth,6).toFixed(1);
       const isMile=task.milestone||false;
-      html+=`<tr class="task-row">
-        <td class="lc">${task.name}</td>
-        <td colspan="${months.length}" class="bar-cell">
-          ${todayLine}
+      html+=`<div class="gantt-row task-row" data-pi="${pi}" data-ti="${ti}">
+        <div class="row-label task-label">
+          <span class="drag-handle" style="opacity:0.2;font-size:11px">⠿</span>
+          <span class="editable-name" contenteditable="true" data-edit-phase="${pi}" data-edit-task="${ti}" data-edit-field="name" spellcheck="false">${task.name}</span>
+          <div class="row-actions">
+            <button class="row-btn" data-toggle-mile="${pi}" data-ti="${ti}" title="${isMile?'Make task':'Make milestone'}">${isMile?'&#9670;':'&#9671;'}</button>
+            <button class="row-btn danger" data-del-task="${pi}" data-ti="${ti}" title="Delete task">&#x2715;</button>
+          </div>
+        </div>
+        <div class="bar-area" style="width:${barAreaWidth}px;height:30px;position:relative">
+          <div class="today-line" style="left:${todayX}px"></div>
           ${isMile
-            ?`<div class="milestone-diamond" style="left:calc(${ts}% - 6px);background:${phase.color}"></div>`
-            :`<div class="bar" style="left:${ts}%;width:${Math.max(te-ts,0.5)}%;background:${phase.color};opacity:0.55"></div>`
+            ?`<div class="milestone-diamond" data-pi="${pi}" data-ti="${ti}" style="left:calc(${tsx}px - 7px);background:${ph.color}"></div>`
+            :`<div class="bar-wrap" data-pi="${pi}" data-ti="${ti}" style="left:${tsx}px;width:${tw}px">
+              <div class="bar-inner" style="background:${ph.color};opacity:0.55">
+                <div class="resize-handle resize-left" data-dir="l"></div>
+                <div class="resize-handle resize-right" data-dir="r"></div>
+              </div>
+            </div>`
           }
-        </td>
-      </tr>`;
+        </div>
+      </div>`;
+    });
+
+    html+=`<button class="add-row-btn" data-add-task="${pi}">&#xff0b; Add task to ${ph.name}</button>`;
+  });
+
+  html+=`<button class="add-phase-btn" id="addPhaseBtn">&#xff0b; Add new phase</button>`;
+  gantt.innerHTML=html;
+
+  attachAll();
+}
+
+function attachAll(){
+  attachBarDrag();
+  attachRowReorder();
+  attachEditing();
+  attachRowButtons();
+  attachColorPicker();
+}
+
+function attachBarDrag(){
+  const gantt=document.getElementById('gantt');
+  let drag=null,dtype=null,startX=0,origL=0,origW=0;
+
+  function snapDay(pv){return Math.round(pv/100*totalDays())/totalDays()*100;}
+  function px2pct(x){return Math.max(0,Math.min(100,x/barAreaWidth*100));}
+
+  gantt.addEventListener('mousedown',e=>{
+    const handle=e.target.closest('.resize-handle');
+    const bar=e.target.closest('.bar-wrap');
+    const mile=e.target.closest('.milestone-diamond');
+    if(e.target.closest('.row-label')) return;
+    if(!bar&&!mile) return;
+    e.preventDefault();
+    drag=bar||mile;dtype=handle?(handle.dataset.dir==='l'?'rl':'rr'):mile?'mile':'move';
+    startX=e.clientX;origL=parseFloat(drag.style.left)||0;origW=parseFloat(drag.style.width)||14;
+    document.addEventListener('mousemove',onMM);document.addEventListener('mouseup',onMU);
+  });
+
+  function getObj(el){
+    const pi=parseInt(el.dataset.pi);const ti=parseInt(el.dataset.ti);
+    return{pi,ti,obj:ti===-1?phases[pi]:phases[pi].tasks[ti]};
+  }
+
+  function onMM(e){
+    if(!drag) return;
+    const dx=e.clientX-startX;
+    const {pi,ti,obj}=getObj(drag);
+    if(dtype==='move'||dtype==='mile'){
+      const nl=Math.max(0,origL+dx);
+      const nsp=snapDay(px2pct(nl));
+      const dur=diffDays(ds(obj.start),ds(obj.end));
+      const ns=dateFromPct(nsp);
+      const ne=new Date(ns);ne.setDate(ne.getDate()+dur);
+      obj.start=sd(ns);obj.end=sd(ne);
+      const nx=(nsp/100*barAreaWidth).toFixed(1);
+      drag.style.left=dtype==='mile'?`calc(${nx}px - 7px)`:nx+'px';
+      showTip(e,`${fmtDate(ns)} → ${fmtDate(ne)}`);
+    } else if(dtype==='rl'){
+      const nl=Math.max(0,Math.min(origL+dx,origL+origW-10));
+      const nw=origL+origW-nl;
+      drag.style.left=nl+'px';drag.style.width=nw+'px';
+      obj.start=sd(dateFromPct(snapDay(px2pct(nl))));
+      showTip(e,`Start: ${fmtDate(ds(obj.start))}`);
+    } else {
+      const nw=Math.max(8,origW+dx);
+      drag.style.width=nw+'px';
+      obj.end=sd(dateFromPct(snapDay(px2pct(origL+nw))));
+      showTip(e,`End: ${fmtDate(ds(obj.end))}`);
+    }
+    moveTip(e);saveData();
+  }
+  function onMU(){hideTip();document.removeEventListener('mousemove',onMM);document.removeEventListener('mouseup',onMU);drag=null;}
+  gantt.addEventListener('mousemove',e=>{if(!drag)moveTip(e);});
+}
+
+function attachRowReorder(){
+  const gantt=document.getElementById('gantt');
+  let srcPi=null,srcEl=null;
+
+  gantt.addEventListener('mousedown',e=>{
+    const h=e.target.closest('[data-drag-phase]');
+    if(!h) return;
+    srcPi=parseInt(h.dataset.dragPhase);
+    srcEl=h.closest('.gantt-row');
+    document.addEventListener('mousemove',onMM);document.addEventListener('mouseup',onMU);
+    e.preventDefault();
+  });
+
+  function onMM(e){
+    if(srcPi===null) return;
+    srcEl&&srcEl.classList.add('row-ghost');
+    const rows=[...document.querySelectorAll('.gantt-row.phase-row')];
+    rows.forEach(r=>r.classList.remove('row-dragging-over'));
+    const over=rows.find(r=>{const rect=r.getBoundingClientRect();return e.clientY>=rect.top&&e.clientY<=rect.bottom;});
+    if(over) over.classList.add('row-dragging-over');
+  }
+
+  function onMU(e){
+    document.removeEventListener('mousemove',onMM);document.removeEventListener('mouseup',onMU);
+    if(srcPi===null){srcEl=null;return;}
+    const rows=[...document.querySelectorAll('.gantt-row.phase-row')];
+    const over=rows.find(r=>r.classList.contains('row-dragging-over'));
+    if(over){
+      const tpi=parseInt(over.dataset.pi);
+      if(tpi!==srcPi){
+        const si=phaseOrder.indexOf(srcPi),ti=phaseOrder.indexOf(tpi);
+        phaseOrder.splice(si,1);phaseOrder.splice(ti,0,srcPi);
+        saveData();render();return;
+      }
+    }
+    rows.forEach(r=>r.classList.remove('row-dragging-over'));
+    srcEl&&srcEl.classList.remove('row-ghost');
+    srcPi=null;srcEl=null;
+  }
+}
+
+function attachEditing(){
+  const gantt=document.getElementById('gantt');
+  gantt.querySelectorAll('[contenteditable]').forEach(el=>{
+    el.addEventListener('blur',()=>{
+      const pi=el.dataset.editPhase!==undefined?parseInt(el.dataset.editPhase):null;
+      const ti=el.dataset.editTask!==undefined?parseInt(el.dataset.editTask):null;
+      const field=el.dataset.editField;
+      if(pi===null) return;
+      const val=el.textContent.trim();
+      if(ti!==undefined&&ti!==null&&!isNaN(ti)){
+        phases[pi].tasks[ti][field]=val;
+      } else {
+        phases[pi][field]=val;
+      }
+      saveData();
+    });
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur();}});
+  });
+
+  const title=document.getElementById('projTitle');
+  title.addEventListener('blur',saveData);
+  title.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();title.blur();}});
+}
+
+function attachRowButtons(){
+  const gantt=document.getElementById('gantt');
+
+  gantt.querySelectorAll('[data-add-task]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pi=parseInt(btn.dataset.addTask);
+      const ph=phases[pi];
+      phases[pi].tasks.push({name:'New task',start:ph.start,end:ph.end,milestone:false});
+      saveData();render();
+      setTimeout(()=>{
+        const els=document.querySelectorAll(`[data-edit-phase="${pi}"][data-edit-field="name"]`);
+        const last=els[els.length-1];if(last){last.focus();document.execCommand('selectAll');}
+      },50);
     });
   });
 
-  html+=`</tbody></table>`;
-  document.getElementById('chart').innerHTML=html;
+  gantt.querySelectorAll('[data-del-task]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pi=parseInt(btn.dataset.delTask),ti=parseInt(btn.dataset.ti);
+      if(!confirm('Delete this task?')) return;
+      phases[pi].tasks.splice(ti,1);saveData();render();
+    });
+  });
+
+  gantt.querySelectorAll('[data-del-phase]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pi=parseInt(btn.dataset.delPhase);
+      if(!confirm(`Delete phase "${phases[pi].name}" and all its tasks?`)) return;
+      phaseOrder=phaseOrder.filter(i=>i!==pi).map(i=>i>pi?i-1:i);
+      phases.splice(pi,1);saveData();render();
+    });
+  });
+
+  gantt.querySelectorAll('[data-toggle-mile]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pi=parseInt(btn.dataset.toggleMile),ti=parseInt(btn.dataset.ti);
+      phases[pi].tasks[ti].milestone=!phases[pi].tasks[ti].milestone;
+      saveData();render();
+    });
+  });
+
+  const addPhase=document.getElementById('addPhaseBtn');
+  if(addPhase) addPhase.addEventListener('click',()=>{
+    const newPh={id:uid(),name:'New phase',color:COLORS[phases.length%COLORS.length],owner:'',start:'2026-07-01',end:'2026-08-01',tasks:[]};
+    phases.push(newPh);
+    phaseOrder.push(phases.length-1);
+    saveData();render();
+    setTimeout(()=>{
+      const els=document.querySelectorAll(`[data-edit-phase="${phases.length-1}"][data-edit-field="name"]`);
+      if(els[0]){els[0].focus();document.execCommand('selectAll');}
+    },50);
+  });
 }
 
+let colorTarget=null;
+function attachColorPicker(){
+  const popup=document.getElementById('colorPicker');
+
+  document.querySelectorAll('[data-color-phase]').forEach(dot=>{
+    dot.addEventListener('click',e=>{
+      e.stopPropagation();
+      const pi=parseInt(dot.dataset.colorPhase);
+      colorTarget=pi;
+      const rect=dot.getBoundingClientRect();
+      popup.style.top=(rect.bottom+6)+'px';
+      popup.style.left=rect.left+'px';
+      popup.innerHTML=COLORS.map(c=>`<div class="cp-swatch${phases[pi].color===c?' selected':''}" style="background:${c}" data-col="${c}" title="${c}"></div>`).join('');
+      popup.style.display='flex';
+      popup.querySelectorAll('.cp-swatch').forEach(sw=>{
+        sw.addEventListener('click',e2=>{
+          e2.stopPropagation();
+          phases[colorTarget].color=sw.dataset.col;
+          popup.style.display='none';colorTarget=null;
+          saveData();render();
+        });
+      });
+    });
+  });
+
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#colorPicker')&&!e.target.closest('[data-color-phase]')){
+      popup.style.display='none';colorTarget=null;
+    }
+  });
+}
+
+window.setView=setView;
+window.addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(render,120);});
+
+loadData();
 render();
 </script>
 </body>
